@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-@EqualsAndHashCode(of = "saleId")
+@EqualsAndHashCode(of = "id")
 public class Sale {
 
     public static final String IDENTIFY = "003";

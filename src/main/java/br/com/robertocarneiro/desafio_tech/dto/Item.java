@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Builder
-@EqualsAndHashCode(of = "saleId")
+@EqualsAndHashCode(of = "id")
 public class Item {
 
     public static final String IDENTIFY = "001";
