@@ -11,8 +11,10 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(of = "id")
 public class Item {
 
-    public static final String IDENTIFY = "001";
-    private Long id;
-    private Long quantity;
+    public static final String START_IDENTIFY = "[";
+    public static final String END_IDENTIFY = "]";
+    public static final int PROPERTIES_NUMBER = 3;
+    private String id;
+    private BigDecimal quantity;
     private BigDecimal price;
 }

@@ -13,6 +13,7 @@ import java.util.List;
 public class Sale {
 
     public static final String IDENTIFY = "003";
+    public static final int PROPERTIES_NUMBER = 4;
     private Long id;
     private String salesmanName;
     private BigDecimal salary;
