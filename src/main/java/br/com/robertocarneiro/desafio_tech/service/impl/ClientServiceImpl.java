@@ -4,10 +4,11 @@ import br.com.robertocarneiro.desafio_tech.service.ClientService;
 import br.com.robertocarneiro.desafio_tech.transformer.impl.ClientTransformer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Component
+@Service
 @RequiredArgsConstructor
 public class ClientServiceImpl implements ClientService {
 
