@@ -3,7 +3,7 @@ package br.com.robertocarneiro.desafio_tech.transformer;
 import br.com.robertocarneiro.desafio_tech.dto.Item;
 import br.com.robertocarneiro.desafio_tech.dto.Sale;
 import br.com.robertocarneiro.desafio_tech.exception.ObjectLineBadFormattedException;
-import br.com.robertocarneiro.desafio_tech.transformer.impl.ItemTransformer;
+import br.com.robertocarneiro.desafio_tech.service.ItemService;
 import br.com.robertocarneiro.desafio_tech.transformer.impl.SaleTransformer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,7 +25,7 @@ public class SaleTransformerTest {
     private SaleTransformer saleTransformer;
 
     @Mock
-    private ItemTransformer itemTransformer;
+    private ItemService itemService;
 
     @Test
     public void whenAllLinesCorrectThenTransformByLinesWithSales() {
@@ -38,9 +38,9 @@ public class SaleTransformerTest {
                 buildItem("2", "33", "1.50"),
                 buildItem("3", "40", "0.10"));
 
-        when(itemTransformer.transformByFullLine("[1-10-100,2-30-2.50,3-40-3.10]"))
+        when(itemService.transformByFullLine("[1-10-100,2-30-2.50,3-40-3.10]"))
                 .thenReturn(itemsPedro);
-        when(itemTransformer.transformByFullLine("[1-34-10,2-33-1.50,3-40-0.10]"))
+        when(itemService.transformByFullLine("[1-34-10,2-33-1.50,3-40-0.10]"))
                 .thenReturn(itemsPaulo);
 
         List<Sale> sales = saleTransformer.transformByLines(lines);

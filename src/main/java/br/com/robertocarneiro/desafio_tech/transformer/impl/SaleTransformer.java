@@ -2,6 +2,7 @@ package br.com.robertocarneiro.desafio_tech.transformer.impl;
 
 import br.com.robertocarneiro.desafio_tech.dto.Sale;
 import br.com.robertocarneiro.desafio_tech.exception.ObjectLineBadFormattedException;
+import br.com.robertocarneiro.desafio_tech.service.ItemService;
 import br.com.robertocarneiro.desafio_tech.transformer.ObjectTransformer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,8 @@ import java.util.stream.Collectors;
 public class SaleTransformer implements ObjectTransformer<Sale> {
 
     private static final String SALE_LINE_BAD_FORMATTED = "Sale line bad formatted";
-    private final ItemTransformer itemTransformer;
+
+    private final ItemService itemService;
 
     @Override
     public List<Sale> transformByLines(List<String> lines) {
@@ -38,7 +40,7 @@ public class SaleTransformer implements ObjectTransformer<Sale> {
         }
         return Sale.builder()
                 .id(properties.get(1))
-                .items(itemTransformer.transformByFullLine(properties.get(2)))
+                .items(itemService.transformByFullLine(properties.get(2)))
                 .salesmanName(properties.get(3))
                 .build();
     }
