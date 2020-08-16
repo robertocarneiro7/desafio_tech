@@ -23,12 +23,15 @@ public class ItemTransformerTest {
         assertEquals("1", items.get(0).getId());
         assertEquals(new BigDecimal("34"), items.get(0).getQuantity());
         assertEquals(new BigDecimal("10"), items.get(0).getPrice());
+        assertEquals(new BigDecimal("340"), items.get(0).getTotal());
         assertEquals("2", items.get(1).getId());
         assertEquals(new BigDecimal("33"), items.get(1).getQuantity());
         assertEquals(new BigDecimal("1.50"), items.get(1).getPrice());
+        assertEquals(new BigDecimal("49.50"), items.get(1).getTotal());
         assertEquals("3", items.get(2).getId());
         assertEquals(new BigDecimal("40"), items.get(2).getQuantity());
         assertEquals(new BigDecimal("0.10"), items.get(2).getPrice());
+        assertEquals(new BigDecimal("4.00"), items.get(2).getTotal());
     }
 
     @Test

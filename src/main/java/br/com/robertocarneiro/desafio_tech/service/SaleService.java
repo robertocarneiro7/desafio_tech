@@ -7,4 +7,6 @@ import java.util.List;
 public interface SaleService {
 
     List<Sale> transformByLines(List<String> lines);
+
+    Sale findMoreExpensiveSaleBySales(List<Sale> sales);
 }

@@ -50,9 +50,11 @@ public class SaleTransformerTest {
         assertEquals("10", sales.get(0).getId());
         assertEquals("Pedro", sales.get(0).getSalesmanName());
         assertEquals(3, sales.get(0).getItems().size());
+        assertEquals(new BigDecimal("1199.00"), sales.get(0).getTotal());
         assertEquals("08", sales.get(1).getId());
         assertEquals("Paulo", sales.get(1).getSalesmanName());
         assertEquals(3, sales.get(1).getItems().size());
+        assertEquals(new BigDecimal("393.50"), sales.get(1).getTotal());
     }
 
     @Test
@@ -66,10 +68,13 @@ public class SaleTransformerTest {
     }
 
     private Item buildItem(String id, String quantity, String price) {
+        BigDecimal quantityNumber = new BigDecimal(quantity);
+        BigDecimal priceNumber = new BigDecimal(price);
         return Item.builder()
                 .id(id)
-                .quantity(new BigDecimal(quantity))
-                .price(new BigDecimal(price))
+                .quantity(quantityNumber)
+                .price(priceNumber)
+                .total(quantityNumber.multiply(priceNumber))
                 .build();
     }
 }

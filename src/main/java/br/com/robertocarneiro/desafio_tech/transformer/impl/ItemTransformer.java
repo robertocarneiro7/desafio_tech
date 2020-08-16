@@ -44,6 +44,7 @@ public class ItemTransformer {
                     .id(properties.get(0))
                     .quantity(quantity)
                     .price(price)
+                    .total(quantity.multiply(price))
                     .build();
         }
         catch (Exception e) {

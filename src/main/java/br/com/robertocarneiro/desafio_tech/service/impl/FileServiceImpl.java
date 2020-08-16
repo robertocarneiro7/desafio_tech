@@ -3,6 +3,7 @@ package br.com.robertocarneiro.desafio_tech.service.impl;
 import br.com.robertocarneiro.desafio_tech.dto.Salesman;
 import br.com.robertocarneiro.desafio_tech.service.ClientService;
 import br.com.robertocarneiro.desafio_tech.service.FileService;
+import br.com.robertocarneiro.desafio_tech.service.SaleService;
 import br.com.robertocarneiro.desafio_tech.service.SalesmanService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -25,6 +27,8 @@ public class FileServiceImpl implements FileService {
 
     private final SalesmanService salesmanService;
 
+    private final SaleService saleService;
+
     @Override
     public void processFile(File file) {
         try {
@@ -33,6 +37,10 @@ public class FileServiceImpl implements FileService {
 
             int countClient = clientService.countClientByLines(lines);
             int countSalesman = salesmen.size();
+            String saleIdMoreExpensive = saleService
+                    .findMoreExpensiveSaleBySales(salesmen
+                            .stream().map(Salesman::getSales).flatMap(Collection::stream).collect(Collectors.toList()))
+                    .getId();
         } catch (Exception e) {
             log.error("Error to execute file: " + file.toPath().toString(), e);
         }

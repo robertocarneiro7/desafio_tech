@@ -17,4 +17,5 @@ public class Item {
     private String id;
     private BigDecimal quantity;
     private BigDecimal price;
+    private BigDecimal total;
 }

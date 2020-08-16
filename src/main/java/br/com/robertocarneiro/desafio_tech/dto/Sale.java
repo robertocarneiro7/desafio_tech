@@ -2,6 +2,7 @@ package br.com.robertocarneiro.desafio_tech.dto;
 
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @AllArgsConstructor
@@ -15,5 +16,6 @@ public class Sale {
     public static final int PROPERTIES_NUMBER = 4;
     private String id;
     private String salesmanName;
+    private BigDecimal total;
     private List<Item> items;
 }
