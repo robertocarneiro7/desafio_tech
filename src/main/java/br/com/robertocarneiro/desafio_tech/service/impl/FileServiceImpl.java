@@ -53,6 +53,8 @@ public class FileServiceImpl implements FileService {
 
             String textToSave = countClient + "\n" + countSalesman + "\n" + moreExpensiveSaleId + "\n" + worstSalesmanName;
             writeOutFile(textToSave, file.getName());
+
+            log.info("Finished execution of the file: " + file.toPath().toString());
         } catch (Exception e) {
             if (isNull(file)) {
                 log.error("File is null", e);
