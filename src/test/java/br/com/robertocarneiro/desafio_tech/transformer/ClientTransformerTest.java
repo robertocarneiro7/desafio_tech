@@ -3,19 +3,11 @@ package br.com.robertocarneiro.desafio_tech.transformer;
 import br.com.robertocarneiro.desafio_tech.dto.Client;
 import br.com.robertocarneiro.desafio_tech.exception.ObjectLineBadFormattedException;
 import br.com.robertocarneiro.desafio_tech.transformer.impl.ClientTransformer;
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ClientTransformerTest {

@@ -29,8 +29,7 @@ public class FileListener implements FileChangeListener {
         changeSet.stream()
                 .map(ChangedFiles::getFiles)
                 .flatMap(Collection::stream)
-                .filter(changedFile -> nonNull(changedFile) && nonNull(changedFile.getFile())
-                        && nonNull(changedFile.getFile().toPath()))
+                .filter(changedFile -> nonNull(changedFile) && nonNull(changedFile.getFile()))
                 .filter(changedFile -> Type.ADD.equals(changedFile.getType()) && !isLocked(changedFile.getFile().toPath()))
                 .map(ChangedFile::getFile)
                 .forEach(fileService::processFile);

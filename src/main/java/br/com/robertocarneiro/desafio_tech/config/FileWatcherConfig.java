@@ -16,14 +16,14 @@ import java.time.Duration;
 @RequiredArgsConstructor
 public class FileWatcherConfig {
 
-    private static final String PATH = System.getProperty("user.home") + File.separator + "data" + File.separator + "in";
+    private static final String PATH_IN = System.getProperty("user.home") + File.separator + "data" + File.separator + "in";
 
     private final FileListener fileListener;
 
     @Bean
     public FileSystemWatcher fileSystemWatcher() {
         FileSystemWatcher fileSystemWatcher = new FileSystemWatcher(true, Duration.ofMillis(500L), Duration.ofMillis(300L));
-        fileSystemWatcher.addSourceDirectory(new File(PATH));
+        fileSystemWatcher.addSourceDirectory(new File(PATH_IN));
         fileSystemWatcher.addListener(fileListener);
         fileSystemWatcher.start();
         log.info("Started fileSystemWatcher");
