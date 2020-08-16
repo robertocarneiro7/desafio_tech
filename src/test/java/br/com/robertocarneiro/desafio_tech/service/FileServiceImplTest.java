@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -61,7 +62,7 @@ public class FileServiceImplTest {
         verify(salesmanService, times(1)).findWorstSalesmanBySalesmen(any());
 
         File fileSaved = new File(PATH_OUT + File.separator + TESTANDO_TXT);
-        fileSaved.delete();
+        assertTrue(fileSaved.delete());
     }
 
     @Test
