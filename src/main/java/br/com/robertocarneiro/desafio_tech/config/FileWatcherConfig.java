@@ -1,7 +1,6 @@
 package br.com.robertocarneiro.desafio_tech.config;
 
 import br.com.robertocarneiro.desafio_tech.listener.FileListener;
-import br.com.robertocarneiro.desafio_tech.service.FileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.devtools.filewatch.FileSystemWatcher;

@@ -1,8 +1,8 @@
 package br.com.robertocarneiro.desafio_tech.service;
 
-import java.util.List;
+import java.io.File;
 
 public interface FileService {
 
-    void processFileByLines(List<String> lines);
+    void processFile(File file);
 }

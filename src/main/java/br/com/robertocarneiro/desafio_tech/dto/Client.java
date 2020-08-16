@@ -10,6 +10,7 @@ import lombok.*;
 public class Client {
 
     public static final String IDENTIFY = "002";
+    public static final int PROPERTIES_NUMBER = 4;
     private String cnpj;
     private String name;
     private String businessArea;
