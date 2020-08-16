@@ -1,12 +1,11 @@
 package br.com.robertocarneiro.desafio_tech.transformer;
 
 import br.com.robertocarneiro.desafio_tech.dto.Item;
-import br.com.robertocarneiro.desafio_tech.exception.ItemLineBadFormattedException;
+import br.com.robertocarneiro.desafio_tech.exception.ObjectLineBadFormattedException;
 import br.com.robertocarneiro.desafio_tech.transformer.impl.ItemTransformer;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,10 +15,8 @@ public class ItemTransformerTest {
     private ItemTransformer itemTransformer = new ItemTransformer();
 
     @Test
-    public void whenAllLinesCorrectThenTransformByLinesWithSalesmen() {
-        List<String> lines = Collections.singletonList("[1-34-10,2-33-1.50,3-40-0.10]");
-
-        List<Item> items = itemTransformer.transformByLines(lines);
+    public void whenAllLinesCorrectThenTransformByFullLineWithItems() {
+        List<Item> items = itemTransformer.transformByFullLine("[1-34-10,2-33-1.50,3-40-0.10]");
 
         assertNotNull(items);
         assertEquals(3, items.size());
@@ -35,23 +32,26 @@ public class ItemTransformerTest {
     }
 
     @Test
-    public void whenLineContainsMorePropertiesThenTransformByLinesThrowsItemLineBadFormattedException() {
-        List<String> lines = Collections.singletonList("[1-34-10,2-33-1.20,3-40-0.10-test]");
+    public void whenLineIsBadFormattedThenTransformByFullLineThrowsObjectLineBadFormattedException() {
+        assertThrows(ObjectLineBadFormattedException.class,
+                () -> itemTransformer.transformByFullLine("s1-34-10,2-33-1.20,3-40-0.10-tests"));
+    }
 
-        assertThrows(ItemLineBadFormattedException.class, () -> itemTransformer.transformByLines(lines));
+    @Test
+    public void whenLineContainsMorePropertiesThenTransformByFullLineThrowsObjectLineBadFormattedException() {
+        assertThrows(ObjectLineBadFormattedException.class,
+                () -> itemTransformer.transformByFullLine("[1-34-10,2-33-1.20,3-40-0.10-test]"));
     }
 
     @Test
     public void whenLineContainsQuantityNotNumberThenTransformByLinesThrowsNumberFormatException() {
-        List<String> lines = Collections.singletonList("[1-34-10,2-test-1.20,3-40-0.10]");
-
-        assertThrows(NumberFormatException.class, () -> itemTransformer.transformByLines(lines));
+        assertThrows(NumberFormatException.class,
+                () -> itemTransformer.transformByFullLine("[1-34-10,2-test-1.20,3-40-0.10]"));
     }
 
     @Test
     public void whenLineContainsPriceNotNumberThenTransformByLinesThrowsNumberFormatException() {
-        List<String> lines = Collections.singletonList("[1-34-10,2-33-test,3-40-0.10]");
-
-        assertThrows(NumberFormatException.class, () -> itemTransformer.transformByLines(lines));
+        assertThrows(NumberFormatException.class,
+                () -> itemTransformer.transformByFullLine("[1-34-10,2-33-test,3-40-0.10]"));
     }
 }

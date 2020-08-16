@@ -1,14 +1,14 @@
 package br.com.robertocarneiro.desafio_tech.transformer;
 
 import br.com.robertocarneiro.desafio_tech.dto.Salesman;
+import br.com.robertocarneiro.desafio_tech.exception.ObjectLineBadFormattedException;
 import br.com.robertocarneiro.desafio_tech.transformer.impl.SalesmanTransformer;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SalesmanTransformerTest {
 
@@ -32,14 +32,12 @@ public class SalesmanTransformerTest {
     }
 
     @Test
-    public void whenAllLinesWrongThenTransformByLinesWithoutClients() {
+    public void whenContainsLineBadFormattedThenTransformByLinesThrowsObjectLineBadFormattedException() {
         List<String> lines = Arrays.asList("002ç2345675434544345çJose da SilvaçRuralçTest",
                 "001ç1234567891234çPedroç50000çTest",
                 "003ç08ç[1-34-10,2-33-1.50,3-40-0.10]çPaulo");
 
-        List<Salesman> salesmen = salesmanTransformer.transformByLines(lines);
-
-        assertNotNull(salesmen);
-        assertEquals(0, salesmen.size());
+        assertThrows(ObjectLineBadFormattedException.class,
+                () -> salesmanTransformer.transformByLines(lines));
     }
 }

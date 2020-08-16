@@ -1,6 +1,7 @@
 package br.com.robertocarneiro.desafio_tech.transformer;
 
 import br.com.robertocarneiro.desafio_tech.dto.Client;
+import br.com.robertocarneiro.desafio_tech.exception.ObjectLineBadFormattedException;
 import br.com.robertocarneiro.desafio_tech.transformer.impl.ClientTransformer;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
@@ -15,8 +16,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ClientTransformerTest {
 
@@ -40,14 +40,12 @@ public class ClientTransformerTest {
     }
 
     @Test
-    public void whenAllLinesWrongThenTransformByLinesWithoutClients() {
+    public void whenContainsLineBadFormattedThenTransformByLinesThrowsObjectLineBadFormattedException() {
         List<String> lines = Arrays.asList("002ç2345675434544345çJose da SilvaçRuralçTest",
                 "001ç1234567891234çPedroç50000",
                 "003ç08ç[1-34-10,2-33-1.50,3-40-0.10]çPaulo");
 
-        List<Client> clients = clientTransformer.transformByLines(lines);
-
-        assertNotNull(clients);
-        assertEquals(0, clients.size());
+        assertThrows(ObjectLineBadFormattedException.class,
+                () -> clientTransformer.transformByLines(lines));
     }
 }
