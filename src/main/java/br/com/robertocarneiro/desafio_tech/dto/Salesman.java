@@ -18,4 +18,5 @@ public class Salesman {
     private String name;
     private String salary;
     private List<Sale> sales;
+    private BigDecimal total;
 }

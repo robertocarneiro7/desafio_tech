@@ -7,4 +7,6 @@ import java.util.List;
 public interface SalesmanService {
 
     List<Salesman> transformByLines(List<String> lines);
+
+    Salesman findWorstSalesmanBySalesmen(List<Salesman> salesmen);
 }

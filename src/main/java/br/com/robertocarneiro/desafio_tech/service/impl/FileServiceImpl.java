@@ -37,10 +37,11 @@ public class FileServiceImpl implements FileService {
 
             int countClient = clientService.countClientByLines(lines);
             int countSalesman = salesmen.size();
-            String saleIdMoreExpensive = saleService
+            String moreExpensiveSaleId = saleService
                     .findMoreExpensiveSaleBySales(salesmen
                             .stream().map(Salesman::getSales).flatMap(Collection::stream).collect(Collectors.toList()))
                     .getId();
+            String worstSalesmanName = salesmanService.findWorstSalesmanBySalesmen(salesmen).getName();
         } catch (Exception e) {
             log.error("Error to execute file: " + file.toPath().toString(), e);
         }
