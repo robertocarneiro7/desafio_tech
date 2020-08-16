@@ -12,7 +12,8 @@ import java.math.BigDecimal;
 public class Salesman {
 
     public static final String IDENTIFY = "001";
+    public static final int PROPERTIES_NUMBER = 4;
     private String cpf;
     private String name;
-    private BigDecimal salary;
+    private String salary;
 }
