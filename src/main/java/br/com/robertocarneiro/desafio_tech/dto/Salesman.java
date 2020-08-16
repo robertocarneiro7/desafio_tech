@@ -3,6 +3,7 @@ package br.com.robertocarneiro.desafio_tech.dto;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @AllArgsConstructor
 @Getter
@@ -16,4 +17,5 @@ public class Salesman {
     private String cpf;
     private String name;
     private String salary;
+    private List<Sale> sales;
 }

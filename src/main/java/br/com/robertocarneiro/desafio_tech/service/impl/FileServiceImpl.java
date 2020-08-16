@@ -1,10 +1,9 @@
 package br.com.robertocarneiro.desafio_tech.service.impl;
 
-import br.com.robertocarneiro.desafio_tech.dto.Client;
 import br.com.robertocarneiro.desafio_tech.dto.Sale;
 import br.com.robertocarneiro.desafio_tech.dto.Salesman;
+import br.com.robertocarneiro.desafio_tech.service.ClientService;
 import br.com.robertocarneiro.desafio_tech.service.FileService;
-import br.com.robertocarneiro.desafio_tech.transformer.impl.ClientTransformer;
 import br.com.robertocarneiro.desafio_tech.transformer.impl.SaleTransformer;
 import br.com.robertocarneiro.desafio_tech.transformer.impl.SalesmanTransformer;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +23,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class FileServiceImpl implements FileService {
 
-    private final ClientTransformer clientTransformer;
+    private final ClientService clientService;
 
     private final SaleTransformer saleTransformer;
 
@@ -34,12 +33,23 @@ public class FileServiceImpl implements FileService {
     public void processFile(File file) {
         try {
             List<String> lines = readAllLines(file);
-            List<Client> clients = clientTransformer.transformByLines(lines);
             List<Sale> sales = saleTransformer.transformByLines(lines);
             List<Salesman> salesmen = salesmanTransformer.transformByLines(lines);
+
+            fillSalesOnSalesmen(sales, salesmen);
+
+            int countClient = clientService.countClientByLines(lines);
         } catch (Exception e) {
             log.error("Error to execute file: " + file.toPath().toString(), e);
         }
+    }
+
+    private void fillSalesOnSalesmen(List<Sale> sales, List<Salesman> salesmen) {
+        sales.stream()
+                .collect(Collectors.groupingBy(Sale::getSalesmanName))
+                .forEach((key, value) -> salesmen.stream()
+                        .filter(salesman -> salesman.getName().equals(key))
+                        .forEach(salesman -> salesman.setSales(value)));
     }
 
     private List<String> readAllLines(File file) {
