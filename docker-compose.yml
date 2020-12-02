@@ -1,0 +1,19 @@
+version: '3'
+services:
+  backend:
+    container_name: desafio-tech
+    restart: unless-stopped
+    volumes:
+      - ${HOME}/data:/root
+    networks:
+      - desafio-tech-network
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - '7001:7001'
+    expose: 
+      - '7001'
+networks:
+  desafio-tech-network:
+    driver: bridge
