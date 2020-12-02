@@ -8,6 +8,7 @@ import br.com.robertocarneiro.desafio_tech.service.SaleService;
 import br.com.robertocarneiro.desafio_tech.service.SalesmanService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedWriter;
@@ -18,6 +19,7 @@ import java.nio.file.Files;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
@@ -37,9 +39,19 @@ public class FileServiceImpl implements FileService {
 
     private final SaleService saleService;
 
+    @Value("${app.allowed-file-type}")
+    private String allowedFileType;
+
     @Override
     public void processFile(File file) {
         try {
+            log.info("Starting execution of the file: " + file.toPath().toString());
+
+            if (getExtensionByFile(file).filter(f -> f.equals(allowedFileType)).isEmpty()) {
+                log.error("The allowed file type is: " + allowedFileType);
+                return;
+            }
+
             List<String> lines = readAllLines(file);
             List<Salesman> salesmen = salesmanService.transformByLines(lines);
 
@@ -89,6 +101,13 @@ public class FileServiceImpl implements FileService {
             log.error(ERROR_TO_SAVE_OUT_FILE);
             throw new SaveOutFileException(ERROR_TO_SAVE_OUT_FILE, e);
         }
+    }
+
+    private Optional<String> getExtensionByFile(File file) {
+        return Optional
+                .ofNullable(file)
+                .map(File::getName)
+                .map(filename -> filename.substring(filename.lastIndexOf('.') + 1));
     }
 
 }
