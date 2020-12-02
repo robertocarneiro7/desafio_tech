@@ -32,6 +32,7 @@ public class FileServiceImpl implements FileService {
     private static final String PATH_OUT = System.getProperty("user.home") + File.separator + "data" + File.separator + "out";
     private static final String ERROR_TO_SAVE_OUT_FILE = "Error to save out file";
     private static final String ERROR_TO_READ_ALL_LINES_ON_FILE = "Error to read all lines on file: ";
+    private static final char POINT = '.';
 
     private final ClientService clientService;
 
@@ -42,12 +43,15 @@ public class FileServiceImpl implements FileService {
     @Value("${app.allowed-file-type}")
     private String allowedFileType;
 
+    @Value("${app.suffix-done}")
+    private String suffixDone;
+
     @Override
     public void processFile(File file) {
         try {
             log.info("Starting execution of the file: " + file.toPath().toString());
 
-            if (getExtensionByFile(file).filter(f -> f.equals(allowedFileType)).isEmpty()) {
+            if (getExtensionByFileName(file.getName()).filter(f -> f.equals(allowedFileType)).isEmpty()) {
                 log.error("The allowed file type is: " + allowedFileType);
                 return;
             }
@@ -90,7 +94,13 @@ public class FileServiceImpl implements FileService {
     }
 
     private void writeOutFile(String textToSave, String fileName) {
-        File file = new File(PATH_OUT + File.separator + fileName);
+        String outFileName = getOnlyNameByFileName(fileName).orElse("") +
+                POINT +
+                suffixDone +
+                POINT +
+                getExtensionByFileName(fileName).orElse("");
+
+        File file = new File(PATH_OUT + File.separator + outFileName);
         file.getParentFile().mkdirs();
         try(FileWriter fw = new FileWriter(file.getAbsoluteFile())) {
             BufferedWriter bw = new BufferedWriter(fw);
@@ -103,11 +113,16 @@ public class FileServiceImpl implements FileService {
         }
     }
 
-    private Optional<String> getExtensionByFile(File file) {
+    private Optional<String> getOnlyNameByFileName(String fileName) {
         return Optional
-                .ofNullable(file)
-                .map(File::getName)
-                .map(filename -> filename.substring(filename.lastIndexOf('.') + 1));
+                .ofNullable(fileName)
+                .map(f -> f.substring(0, f.lastIndexOf('.')));
+    }
+
+    private Optional<String> getExtensionByFileName(String fileName) {
+        return Optional
+                .ofNullable(fileName)
+                .map(f -> f.substring(f.lastIndexOf('.') + 1));
     }
 
 }

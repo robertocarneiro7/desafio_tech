@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -15,6 +16,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -24,7 +26,9 @@ public class FileServiceImplTest {
     private static final String PEDRO = "Pedro";
     private static final String PAULO = "Paulo";
     private static final String PATH_OUT = System.getProperty("user.home") + File.separator + "data" + File.separator + "out";
-    private static final String TESTANDO_TXT = "testando.txt";
+    private static final String TEST_FILE = "testando.dat";
+    private static final String TEST_OUTPUT_FILE = "testando.done.dat";
+
 
     @InjectMocks
     private FileServiceImpl fileService;
@@ -40,9 +44,12 @@ public class FileServiceImplTest {
 
     @Test
     public void whenFileIsCorrectThenProcessFileSuccess() {
-        String path = this.getClass().getClassLoader().getResource(TESTANDO_TXT).getPath();
+        String path = this.getClass().getClassLoader().getResource(TEST_FILE).getPath();
         File file = new File(path);
         List<Salesman> salesmen = buildAllSalesmen();
+
+        ReflectionTestUtils.setField(fileService, "allowedFileType", "dat");
+        ReflectionTestUtils.setField(fileService, "suffixDone", "done");
 
         when(salesmanService.transformByLines(any()))
                 .thenReturn(buildAllSalesmen());
@@ -60,8 +67,10 @@ public class FileServiceImplTest {
         verify(saleService, times(1)).findMoreExpensiveSaleBySales(any());
         verify(salesmanService, times(1)).findWorstSalesmanBySalesmen(any());
 
-        File fileSaved = new File(PATH_OUT + File.separator + TESTANDO_TXT);
-        fileSaved.delete();
+        File fileSaved = new File(PATH_OUT + File.separator + TEST_OUTPUT_FILE);
+        boolean deleted = fileSaved.delete();
+
+        assertTrue(deleted);
     }
 
     @Test
