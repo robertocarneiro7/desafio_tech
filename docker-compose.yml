@@ -4,7 +4,7 @@ services:
     container_name: desafio-tech
     restart: unless-stopped
     volumes:
-      - ${HOME}/data:/root
+      - ~/data:/root/data
     networks:
       - desafio-tech-network
     build: 
