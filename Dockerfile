@@ -1,8 +1,7 @@
-FROM openjdk:13.0.2 AS builder
-
-ADD ./ ./
-
-RUN ./gradlew build --no-daemon
+FROM gradle:6.3-jdk13 as builder
+WORKDIR /
+COPY . /
+RUN gradle build --no-daemon
 
 FROM openjdk:13.0.2
 
