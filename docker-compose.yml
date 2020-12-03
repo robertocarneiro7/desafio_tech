@@ -5,6 +5,7 @@ services:
     restart: unless-stopped
     volumes:
       - ~/data:/root/data
+      - ~/data/logs:/logs
     networks:
       - desafio-tech-network
     build: 
