@@ -22,5 +22,8 @@ Para utilizar a aplicação é necessário atender alguns pré-requisitos:
 Após os pré-requisitos serem atendidos, é necessário apenas entrar na pasta raiz do projeto e executar o seguinte comando:
 - docker-compose up --build -d
 
-Para visualizar os logs da aplicação basta utilizar o seguinte comando:
+Para visualizar os logs da aplicação enquanto ela está sendo executada, basta utilizar o seguinte comando:
 - docker logs -f --tail 10000 desafio-tech
+
+Para visualizar os logs antigos da aplicação, basta acessar o seguinte diretório no seu computador:
+- ~/data/logs
