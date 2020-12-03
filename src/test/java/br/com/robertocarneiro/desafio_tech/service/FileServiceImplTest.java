@@ -29,7 +29,6 @@ public class FileServiceImplTest {
     private static final String TEST_FILE = "testando.dat";
     private static final String TEST_OUTPUT_FILE = "testando.done.dat";
 
-
     @InjectMocks
     private FileServiceImpl fileService;
 
@@ -68,9 +67,7 @@ public class FileServiceImplTest {
         verify(salesmanService, times(1)).findWorstSalesmanBySalesmen(any());
 
         File fileSaved = new File(PATH_OUT + File.separator + TEST_OUTPUT_FILE);
-        boolean deleted = fileSaved.delete();
-
-        assertTrue(deleted);
+        assertTrue(fileSaved.delete());
     }
 
     @Test
