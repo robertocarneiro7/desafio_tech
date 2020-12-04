@@ -7,9 +7,12 @@ A aplicação observa o diretório **~/data/in**, caso seja adicionado um arquiv
 ## Tecnologias utilizadas
 1. Java 13
 2. Spring-Boot
-3. Spring-Boot-Devtools(Foi utilizado **FileSystemWatcher.class** e **FileChangeListener.class** para ficar observando se ocorreu adição de arquivo em um diretório)
-4. Spring-Boot-Starter-Log4j2
-5. Lombok
+3. **Spring-Boot-Devtools**:
+    - Foram utilizadas as classes **FileSystemWatcher.class** e **FileChangeListener.class** para ficar observando se ocorreu adição de arquivo no diretório **~/data/in**.
+4. **Spring-Boot-Starter-Log4j2**:
+    - Dependência utilizada para gerenciamento de logs da aplicação.
+5. **Lombok**:
+    - Dependência utilizada para geração automática de códigos através de suas anotações, como **@Setters**, **@Getters** e **@RequiredArgsConstructor**.
 6. Docker
 
 ## Como rodar a aplicação?
@@ -25,5 +28,5 @@ Após os pré-requisitos serem atendidos, é necessário apenas entrar na pasta 
 Para visualizar os logs da aplicação enquanto ela está sendo executada, basta utilizar o seguinte comando:
 - docker logs -f --tail 10000 desafio-tech
 
-Para visualizar os logs antigos da aplicação, basta acessar o seguinte diretório no seu computador:
+Os arquivos com os logs antigos e atuais da aplicação, estão sendo salvos no seguinte diretório:
 - ~/data/logs

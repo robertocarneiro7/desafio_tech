@@ -116,13 +116,13 @@ public class FileServiceImpl implements FileService {
     private Optional<String> getOnlyNameByFileName(String fileName) {
         return Optional
                 .ofNullable(fileName)
-                .map(f -> f.substring(0, f.lastIndexOf('.')));
+                .map(f -> f.substring(0, f.lastIndexOf(POINT)));
     }
 
     private Optional<String> getExtensionByFileName(String fileName) {
         return Optional
                 .ofNullable(fileName)
-                .map(f -> f.substring(f.lastIndexOf('.') + 1));
+                .map(f -> f.substring(f.lastIndexOf(POINT) + 1));
     }
 
 }
