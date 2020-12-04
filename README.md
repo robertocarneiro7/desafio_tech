@@ -12,7 +12,7 @@ A aplicação observa o diretório **~/data/in**, caso seja adicionado um arquiv
 4. **Spring-Boot-Starter-Log4j2**:
     - Dependência utilizada para gerenciamento de logs da aplicação.
 5. **Lombok**:
-    - Dependência utilizada para geração automática de códigos através de suas anotações, como **@Setters**, **@Getters** e **@RequiredArgsConstructor**.
+    - Dependência utilizada para geração automática de códigos através de suas anotações, como **@Setter**, **@Getter** e **@RequiredArgsConstructor**.
 6. Docker
 
 ## Como rodar a aplicação?
